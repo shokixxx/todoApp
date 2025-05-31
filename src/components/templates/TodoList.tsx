@@ -1,8 +1,6 @@
 import { useRef } from 'react'
 
-import { Button } from '@mui/material'
-
-import { InputField } from '../atmos/InputField'
+import { AddTodoForm } from '../molecules/AddTodoForm'
 
 export const TodoList = () => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -24,8 +22,7 @@ export const TodoList = () => {
       </header>
       <main>
         <form onSubmit={handleSubmit}>
-          <InputField ref={inputRef} />
-          <Button variant="contained">登録する</Button>
+          <AddTodoForm inputRef={inputRef} />
         </form>
       </main>
     </>
