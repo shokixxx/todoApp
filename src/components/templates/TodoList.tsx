@@ -1,11 +1,9 @@
 import { useRef, useState } from 'react'
 
 import { AddTodoForm } from '../molecules/AddTodoForm'
+import { TodoStatusList } from '../molecules/TodoStatusList'
 
-type TodoItem = {
-  id: number
-  name: string
-}
+import type { TodoItem } from '../../type/TodoItem'
 
 // TODO: ここで管理せずUUIDなどを採番して管理すること
 let nextId = 0
@@ -34,11 +32,17 @@ export const TodoList = () => {
         <form onSubmit={handleSubmit}>
           <AddTodoForm inputRef={inputRef} />
         </form>
-        <ul>
-          {todoItems.map((todoItem) => (
-            <li key={todoItem.id}>{todoItem.name}</li>
-          ))}
-        </ul>
+        <div className="mx-5 flex min-w-xl gap-4 overflow-auto">
+          <div className="w-1/3 min-w-[200px] rounded bg-blue-400 p-2">
+            <TodoStatusList statusTitle="未着手" todoItems={todoItems} />
+          </div>
+          <div className="w-1/3 min-w-[200px] rounded bg-pink-400 p-2">
+            <TodoStatusList statusTitle="進行中" todoItems={todoItems} />
+          </div>
+          <div className="w-1/3 min-w-[200px] rounded bg-green-400 p-2">
+            <TodoStatusList statusTitle="完了" todoItems={todoItems} />
+          </div>
+        </div>
       </main>
     </>
   )
