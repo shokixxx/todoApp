@@ -28,7 +28,7 @@ export const TodoList = () => {
   return (
     <>
       <header>
-        <h1>TODOList</h1>
+        <h1 className="m-12 text-3xl">TODOList</h1>
       </header>
       <main>
         <form onSubmit={handleSubmit}>
