@@ -8,11 +8,11 @@ type Props = {
 
 export const AddTodoForm = ({ inputRef }: Props) => {
   return (
-    <>
-      <InputField ref={inputRef} />
-      <Button variant="contained" type="submit">
+    <div className="m-5 flex gap-5">
+      <InputField ref={inputRef} className="w-2/3 p-5" />
+      <Button variant="contained" type="submit" className="w-20">
         登録
       </Button>
-    </>
+    </div>
   )
 }

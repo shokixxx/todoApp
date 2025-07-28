@@ -3,7 +3,7 @@ import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
-import eslintConfigPrettier from 'eslint-config-prettier'
+import eslintPluginJest from 'eslint-plugin-jest'
 
 export default tseslint.config(
   { ignores: ['dist'] },
@@ -24,5 +24,13 @@ export default tseslint.config(
       'no-console': 'warn',
     },
   },
-  eslintConfigPrettier
+  {
+    files: ['**/*.test.ts', '**/*.test.tsx', 'tests/**/*'],
+    plugins: { jest: eslintPluginJest },
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+      },
+    },
+  }
 )
