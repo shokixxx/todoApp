@@ -17,7 +17,7 @@ export const TodoList = () => {
     if (inputRef.current) {
       const newTodoName = inputRef.current.value
       if (newTodoName !== '') {
-        setTodoItems([...todoItems, { id: ++nextId, name: newTodoName }])
+        setTodoItems([...todoItems, { id: ++nextId, name: newTodoName, status: 'notStarted' }])
         inputRef.current.value = ''
       }
     }
@@ -34,13 +34,19 @@ export const TodoList = () => {
         </form>
         <div className="mx-5 flex min-w-xl gap-4 overflow-auto">
           <div className="w-1/3 min-w-[200px] rounded bg-blue-400 p-2">
-            <TodoStatusList statusTitle="未着手" todoItems={todoItems} />
+            <TodoStatusList
+              statusTitle="未着手"
+              todoItems={todoItems.filter((todoItem) => todoItem.status === 'notStarted')}
+            />
           </div>
           <div className="w-1/3 min-w-[200px] rounded bg-pink-400 p-2">
-            <TodoStatusList statusTitle="進行中" todoItems={todoItems} />
+            <TodoStatusList
+              statusTitle="進行中"
+              todoItems={todoItems.filter((todoItem) => todoItem.status === 'doing')}
+            />
           </div>
           <div className="w-1/3 min-w-[200px] rounded bg-green-400 p-2">
-            <TodoStatusList statusTitle="完了" todoItems={todoItems} />
+            <TodoStatusList statusTitle="完了" todoItems={todoItems.filter((todoItem) => todoItem.status === 'done')} />
           </div>
         </div>
       </main>
