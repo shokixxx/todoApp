@@ -1,15 +1,23 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 import { AddTodoForm } from '../molecules/AddTodoForm'
+import { TodoStatusList } from '../molecules/TodoStatusList'
+
+import type { TodoItem } from '../../type/TodoItem'
+
+// TODO: ここで管理せずUUIDなどを採番して管理すること
+let nextId = 0
 
 export const TodoList = () => {
   const inputRef = useRef<HTMLInputElement>(null)
+  const [todoItems, setTodoItems] = useState<TodoItem[]>([])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (inputRef.current) {
-      const newTodo = inputRef.current.value
-      if (newTodo !== '') {
+      const newTodoName = inputRef.current.value
+      if (newTodoName !== '') {
+        setTodoItems([...todoItems, { id: ++nextId, name: newTodoName, status: 'notStarted' }])
         inputRef.current.value = ''
       }
     }
@@ -24,6 +32,23 @@ export const TodoList = () => {
         <form onSubmit={handleSubmit}>
           <AddTodoForm inputRef={inputRef} />
         </form>
+        <div className="mx-5 flex min-w-xl gap-4 overflow-auto">
+          <div className="w-1/3 min-w-[200px] rounded bg-blue-400 p-2">
+            <TodoStatusList
+              statusTitle="未着手"
+              todoItems={todoItems.filter((todoItem) => todoItem.status === 'notStarted')}
+            />
+          </div>
+          <div className="w-1/3 min-w-[200px] rounded bg-pink-400 p-2">
+            <TodoStatusList
+              statusTitle="進行中"
+              todoItems={todoItems.filter((todoItem) => todoItem.status === 'doing')}
+            />
+          </div>
+          <div className="w-1/3 min-w-[200px] rounded bg-green-400 p-2">
+            <TodoStatusList statusTitle="完了" todoItems={todoItems.filter((todoItem) => todoItem.status === 'done')} />
+          </div>
+        </div>
       </main>
     </>
   )
