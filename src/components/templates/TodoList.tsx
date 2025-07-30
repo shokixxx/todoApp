@@ -33,7 +33,18 @@ export const TodoList = () => {
           <AddTodoForm inputRef={inputRef} />
         </form>
         <div className="mx-5 flex min-w-xl gap-4 overflow-auto">
-          <div className="w-1/3 min-w-[200px] rounded bg-blue-400 p-2">
+          <div
+            className="w-1/3 min-w-[200px] rounded bg-blue-400 p-2"
+            onDragOver={(event) => event.preventDefault()}
+            onDrop={(event) => {
+              const dropItemId = event.dataTransfer.getData('text/plain')
+              setTodoItems(
+                todoItems.map((todoItem) =>
+                  todoItem.id === Number(dropItemId) ? { ...todoItem, status: 'notStarted' } : todoItem
+                )
+              )
+            }}
+          >
             <TodoStatusList
               statusTitle="未着手"
               todoItems={todoItems.filter((todoItem) => todoItem.status === 'notStarted')}
