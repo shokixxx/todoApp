@@ -6,8 +6,9 @@ import type { TodoItem } from '../../type/TodoItem'
 type TodoStatusListProps = {
   statusTitle: string
   todoItems: TodoItem[]
+  handleDelete: (deleteId: number) => void
 }
-export const TodoStatusList = ({ statusTitle, todoItems }: TodoStatusListProps) => {
+export const TodoStatusList = ({ statusTitle, todoItems, handleDelete }: TodoStatusListProps) => {
   return (
     <>
       <h2 className="m-5 text-center text-2xl font-bold">{statusTitle}</h2>
@@ -20,7 +21,7 @@ export const TodoStatusList = ({ statusTitle, todoItems }: TodoStatusListProps) 
             onDragStart={(event) => event.dataTransfer.setData('text/plain', `${todoItem.id}`)}
           >
             {todoItem.name}
-            <IconButton aria-label="delete">
+            <IconButton aria-label="delete" onClick={() => handleDelete(todoItem.id)}>
               <DeleteIcon />
             </IconButton>
           </li>

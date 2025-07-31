@@ -23,6 +23,10 @@ export const TodoList = () => {
     }
   }
 
+  const handleDelete = (deleteId: number) => {
+    setTodoItems((todoItem) => todoItem.filter((todoItem) => todoItem.id !== deleteId))
+  }
+
   return (
     <>
       <header>
@@ -48,6 +52,7 @@ export const TodoList = () => {
             <TodoStatusList
               statusTitle="未着手"
               todoItems={todoItems.filter((todoItem) => todoItem.status === 'notStarted')}
+              handleDelete={handleDelete}
             />
           </div>
           <div
@@ -65,6 +70,7 @@ export const TodoList = () => {
             <TodoStatusList
               statusTitle="進行中"
               todoItems={todoItems.filter((todoItem) => todoItem.status === 'doing')}
+              handleDelete={handleDelete}
             />
           </div>
           <div
@@ -79,7 +85,11 @@ export const TodoList = () => {
               )
             }}
           >
-            <TodoStatusList statusTitle="完了" todoItems={todoItems.filter((todoItem) => todoItem.status === 'done')} />
+            <TodoStatusList
+              statusTitle="完了"
+              todoItems={todoItems.filter((todoItem) => todoItem.status === 'done')}
+              handleDelete={handleDelete}
+            />
           </div>
         </div>
       </main>
