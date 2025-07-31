@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton'
 import type { TodoItem } from '../../type/TodoItem'
 
 type TodoStatusListProps = {
-  statusTitle: string
+  statusTitle: '未着手' | '進行中' | '完了'
   todoItems: TodoItem[]
   handleDelete: (deleteId: number) => void
 }
