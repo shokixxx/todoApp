@@ -12,8 +12,8 @@ export const TodoList = () => {
   const inputRef = useRef<HTMLInputElement>(null)
   const [todoItems, setTodoItems] = useState<TodoItem[]>([])
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault()
     if (inputRef.current) {
       const newTodoName = inputRef.current.value
       if (newTodoName !== '') {
@@ -33,9 +33,7 @@ export const TodoList = () => {
         <h1 className="m-12 text-3xl">TODOList</h1>
       </header>
       <main>
-        <form onSubmit={handleSubmit}>
-          <AddTodoForm inputRef={inputRef} />
-        </form>
+        <AddTodoForm inputRef={inputRef} handleSubmit={handleSubmit} />
         <div className="mx-5 flex min-w-xl gap-4 overflow-auto">
           <div
             className="w-1/3 min-w-[200px] rounded bg-blue-400 p-2"
