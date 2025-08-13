@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 import { AddTodoForm } from '../molecules/AddTodoForm'
 import { TodoStatusList } from '../molecules/TodoStatusList'
 
-import type { TodoItem } from '../../type/TodoItem'
+import { TODO_STATUS, type TodoItem } from '../../type/TodoItem'
 
 // TODO: ここで管理せずUUIDなどを採番して管理すること
 let nextId = 0
@@ -17,7 +17,7 @@ export const TodoList = () => {
     if (inputRef.current) {
       const newTodoName = inputRef.current.value
       if (newTodoName !== '') {
-        setTodoItems([...todoItems, { id: ++nextId, name: newTodoName, status: 'notStarted' }])
+        setTodoItems([...todoItems, { id: ++nextId, name: newTodoName, status: TODO_STATUS.NOT_STARTED }])
         inputRef.current.value = ''
       }
     }
@@ -42,14 +42,14 @@ export const TodoList = () => {
               const dropItemId = event.dataTransfer.getData('text/plain')
               setTodoItems(
                 todoItems.map((todoItem) =>
-                  todoItem.id === Number(dropItemId) ? { ...todoItem, status: 'notStarted' } : todoItem
+                  todoItem.id === Number(dropItemId) ? { ...todoItem, status: TODO_STATUS.NOT_STARTED } : todoItem
                 )
               )
             }}
           >
             <TodoStatusList
               statusTitle="未着手"
-              todoItems={todoItems.filter((todoItem) => todoItem.status === 'notStarted')}
+              todoItems={todoItems.filter((todoItem) => todoItem.status === TODO_STATUS.NOT_STARTED)}
               handleDelete={handleDelete}
             />
           </div>
@@ -60,14 +60,14 @@ export const TodoList = () => {
               const dropItemId = event.dataTransfer.getData('text/plain')
               setTodoItems(
                 todoItems.map((todoItem) =>
-                  todoItem.id === Number(dropItemId) ? { ...todoItem, status: 'doing' } : todoItem
+                  todoItem.id === Number(dropItemId) ? { ...todoItem, status: TODO_STATUS.DOING } : todoItem
                 )
               )
             }}
           >
             <TodoStatusList
               statusTitle="進行中"
-              todoItems={todoItems.filter((todoItem) => todoItem.status === 'doing')}
+              todoItems={todoItems.filter((todoItem) => todoItem.status === TODO_STATUS.DOING)}
               handleDelete={handleDelete}
             />
           </div>
@@ -78,14 +78,14 @@ export const TodoList = () => {
               const dropItemId = event.dataTransfer.getData('text/plain')
               setTodoItems(
                 todoItems.map((todoItem) =>
-                  todoItem.id === Number(dropItemId) ? { ...todoItem, status: 'done' } : todoItem
+                  todoItem.id === Number(dropItemId) ? { ...todoItem, status: TODO_STATUS.DONE } : todoItem
                 )
               )
             }}
           >
             <TodoStatusList
               statusTitle="完了"
-              todoItems={todoItems.filter((todoItem) => todoItem.status === 'done')}
+              todoItems={todoItems.filter((todoItem) => todoItem.status === TODO_STATUS.DONE)}
               handleDelete={handleDelete}
             />
           </div>
