@@ -11,7 +11,7 @@ vercelにてデプロイ → https://todo-app-puce-tau-26.vercel.app/
 
 # ブランチルール
 
-- `developer`ブランチから切って開発すること
-- マージリクエスト先も`developer`
+- `develop`ブランチから切って開発すること
+- マージリクエスト先も`develop`
 - 機能追加: `feature/`
 - テストコード: `test/`
